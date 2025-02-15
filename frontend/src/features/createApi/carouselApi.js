@@ -3,16 +3,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const carouselApi = createApi({
   reducerPath: "carouselApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8009",
+    baseUrl: "http://localhost:8009/api/carousels",
     credentials: "include",
   }),
   endpoints: (builder) => ({
     getCarouselImages: builder.query({
-      query: () => "/carousel",
+      query: () => "/get-image",
     }),
     addCarouselImage: builder.mutation({
       query: (newImage) => ({
-        url: "/carousel",
+        url: "/upload-image",
         method: "POST",
         body: newImage,
       }),
@@ -26,11 +26,8 @@ export const carouselApi = createApi({
   }),
 });
 
-// Export hooks for usage in functional components
 export const {
   useGetCarouselImagesQuery,
   useAddCarouselImageMutation,
   useDeleteCarouselImageMutation,
 } = carouselApi;
-
-export default carouselApi.reducer;
