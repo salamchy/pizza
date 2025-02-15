@@ -24,9 +24,12 @@ const Login = () => {
 
     try {
       const response = await loginUser({ email, password }).unwrap();
-      dispatch(setUser(response)); // Set user in Redux store
+      dispatch(setUser(response));
       toast.success("Login successful!");
-      navigate("/");
+      const isAdmin = response.user.isAdmin;
+      navigate(isAdmin ? "/admin" : "/");
+
+
     } catch (error) {
       toast.error(error.data?.message || "Invalid credentials");
     }

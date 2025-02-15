@@ -29,19 +29,21 @@ const Register = () => {
       return;
     }
 
-    // Additional password format validation
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long.");
       return;
     }
+
     if (!/[A-Z]/.test(password)) {
       toast.error("Password must contain at least one uppercase letter.");
       return;
     }
+
     if (!/[a-z]/.test(password)) {
       toast.error("Password must contain at least one lowercase letter.");
       return;
     }
+
     if (!/[0-9]/.test(password)) {
       toast.error("Password must contain at least one digit.");
       return;
@@ -49,11 +51,11 @@ const Register = () => {
 
     try {
       const response = await registerUser({ userName, email, password }).unwrap();
-      dispatch(setUser(response)); // Set user in Redux store
+      dispatch(setUser(response));  // Set user in Redux store
       toast.success("Registration successful!");
-      navigate("/login"); // Redirect to home page
+      navigate("/login"); // Redirect to login page
     } catch (error) {
-      // Handle specific validation errors
+      console.error(error);  // Log the error for debugging
       if (error.data.errors) {
         error.data.errors.forEach(err => {
           toast.error(err.msg);
@@ -63,6 +65,7 @@ const Register = () => {
       }
     }
   };
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
