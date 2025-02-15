@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authApi } from "../createApi/authApi.js"; // Import authApi
+import { authApi } from "../createApi/authApi.js";
 
 const authSlice = createSlice({
   name: "auth",
@@ -11,6 +11,7 @@ const authSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.user = action.payload.user;
+      state.isAdmin = action.payload.user.isAdmin;
       state.isAuthenticated = true;
       state.token = action.payload.token;
     },
